@@ -7,12 +7,15 @@ import {AuthProvider} from "@/contexts/AutContext.tsx";
 function App() {
 
     return (
-        <AuthProvider>
-            <Toaster/>
-            <BrowserRouter>
-                <AppRouter/>
-            </BrowserRouter>
-        </AuthProvider>
+        <section className="w-screen">
+            <AuthProvider>
+                <Toaster/>
+                <BrowserRouter>
+                    <AppRouter/>
+                </BrowserRouter>
+            </AuthProvider>
+        </section>
+
     )
 }
 
