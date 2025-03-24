@@ -4,6 +4,7 @@ import Questions from "@/pages/Questions.tsx";
 import Answers from "@/pages/Answers.tsx";
 import Notfound from "@/pages/Notfound.tsx";
 import {useAuth} from "@/contexts/AutContext.tsx";
+import LogedinPageLayout from "@/components/layouts/LogedinPageLayout.tsx";
 
 const ProtectedRoute = ({children}: { children: React.ReactNode }) => {
     const {isAuthenticated} = useAuth();
@@ -40,14 +41,18 @@ export default function AppRouter() {
             <Route path="/questions" element={
                 <ProtectedRoute>
                     <AdminRoute>
-                        <Questions/>
+                        <LogedinPageLayout>
+                            <Questions/>
+                        </LogedinPageLayout>
                     </AdminRoute>
                 </ProtectedRoute>
             }/>
 
             <Route path="/answers" element={
                 <ProtectedRoute>
-                    <Answers/>
+                    <LogedinPageLayout>
+                        <Answers/>
+                    </LogedinPageLayout>
                 </ProtectedRoute>
             }/>
 
