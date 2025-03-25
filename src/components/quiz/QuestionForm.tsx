@@ -17,7 +17,6 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
     const [content, setContent] = useState(initialData?.content || '');
     const [options, setOptions] = useState<string[]>(initialData?.options || ['', '']);
     const [correctOption, setCorrectOption] = useState<number | undefined>(initialData?.correctOption);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
     // Validate form
@@ -43,12 +42,10 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
     };
 
     // Handle form submission
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!validate()) return;
-
-        setIsSubmitting(true);
 
         try {
             // Filter out empty options
@@ -61,7 +58,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                 adjustedCorrectOption = filteredOptions.findIndex(opt => opt === selectedOptionValue);
             }
 
-            await onSubmit({
+            onSubmit({
                 title,
                 content,
                 options: filteredOptions,
@@ -69,9 +66,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
             });
         } catch (error) {
             console.error('Error submitting question:', error);
-        } finally {
-            setIsSubmitting(false);
-        }
+        } 
     };
 
     // Add option field
@@ -152,8 +147,8 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                             onClick={addOption}
                             className="inline-flex items-center p-1 border border-transparent text-xs font-medium rounded text-primary hover:bg-primary/10"
                         >
-                            <Plus className="h-4 w-4"/>
-                            <span className="ml-1">Add Option</span>
+                            <Plus className="text-white h-4 w-4"/>
+                            <span className="text-white ml-1">Add Option</span>
                         </button>
                     </div>
 
@@ -186,7 +181,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                                             <button
                                                 type="button"
                                                 onClick={() => removeOption(index)}
-                                                className="absolute right-3 text-muted-foreground hover:text-destructive"
+                                                className="text-white absolute right-3 hover:text-destructive"
                                             >
                                                 <Minus className="h-4 w-4"/>
                                             </button>
@@ -210,33 +205,18 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="px-4 py-2 border border-input rounded-md text-sm font-medium hover:bg-secondary/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50"
-                    disabled={isSubmitting}
+                    className="text-white px-4 py-2 border border-input rounded-md text-sm font-medium hover:bg-secondary/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50"
                 >
                     Cancel
                 </button>
                 <button
                     type="submit"
-                    disabled={isSubmitting}
                     className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                    {isSubmitting ? (
-                        <>
-                            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                        strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor"
-                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Saving...
-                        </>
-                    ) : (
-                        <>
-                            <Save className="h-4 w-4 mr-2"/>
-                            Save Question
-                        </>
-                    )}
+                    <>
+                         <Save className="h-4 w-4 mr-2"/>
+                        Save Question
+                    </>
                 </button>
             </div>
         </form>

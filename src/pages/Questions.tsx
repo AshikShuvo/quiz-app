@@ -6,6 +6,7 @@ import {useAuth} from '@/contexts/AutContext';
 import {useNavigate} from 'react-router-dom';
 import QuestionCard from "@/components/quiz/QuestionCard.tsx";
 import QuestionForm from "@/components/quiz/QuestionForm.tsx";
+import BaseModal from '@/components/layouts/BaseModal';
 
 const Questions: React.FC = () => {
     const {questions, createQuestion, editQuestion, removeQuestion} = useQuiz();
@@ -68,24 +69,28 @@ const Questions: React.FC = () => {
             </div>
 
             {showForm && (
-                <div className="mb-8 animate-fade-in">
-                    <h2 className="text-xl font-medium mb-4">Create New Question</h2>
-                    <QuestionForm
-                        onSubmit={handleCreateQuestion}
-                        onCancel={cancelForm}
-                    />
-                </div>
+                <BaseModal open={showForm} onClose={() => setShowForm(false)}>
+                    <div className="mb-8 animate-fade-in w-[30rem]">
+                        <h2 className="text-xl font-medium mb-4">Create New Question</h2>
+                        <QuestionForm
+                            onSubmit={handleCreateQuestion}
+                            onCancel={cancelForm}
+                        />
+                    </div>
+                </BaseModal>
             )}
 
             {editingQuestion && (
-                <div className="mb-8 animate-fade-in">
-                    <h2 className="text-xl font-medium mb-4">Edit Question</h2>
-                    <QuestionForm
-                        initialData={editingQuestion}
-                        onSubmit={handleEditQuestion}
-                        onCancel={cancelForm}
-                    />
-                </div>
+                <BaseModal open={!!editingQuestion} onClose={() => setEditingQuestion(null)}>
+                    <div className="mb-8 animate-fade-in">
+                        <h2 className="text-xl font-medium mb-4">Edit Question</h2>
+                        <QuestionForm
+                            initialData={editingQuestion}
+                            onSubmit={handleEditQuestion}
+                            onCancel={cancelForm}
+                        />
+                    </div>
+                </BaseModal>
             )}
 
             <div className="space-y-6">
