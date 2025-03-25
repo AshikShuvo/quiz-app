@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useNavigate, useLocation} from 'react-router-dom';
+import {Link, useNavigate, useLocation, NavLink} from 'react-router-dom';
 import {LogOut, Menu, X} from 'lucide-react';
 import {useAuth} from "@/contexts/AutContext.tsx";
 
@@ -32,24 +32,24 @@ const Navbar: React.FC = () => {
     return (
         <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border">
             <div className="container h-16 flex items-center justify-between px-4 md:px-6">
-                <Link to="/" className="flex items-center space-x-2">
+                <NavLink to="/" className="flex items-center space-x-2">
                     <span className="font-bold text-xl">Quick Quiz</span>
-                </Link>
+                </NavLink>
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center space-x-6">
                     {navLinks.map((link) => (
-                        <Link
+                        <p
                             key={link.path}
-                            to={link.path}
-                            className={`text-sm font-medium transition-colors ${
+                            onClick={() => navigate(link.path)}
+                            className={`text-sm font-medium transition-colors cursor-pointer ${
                                 location.pathname === link.path
-                                    ? 'text-primary'
+                                    ? 'text-blue-800'
                                     : 'text-muted-foreground hover:text-foreground'
                             }`}
                         >
                             {link.label}
-                        </Link>
+                        </p>
                     ))}
 
                     <div className="flex items-center space-x-4">

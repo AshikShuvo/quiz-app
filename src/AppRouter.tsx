@@ -28,14 +28,15 @@ const AdminRoute = ({children}: { children: React.ReactNode }) => {
 };
 
 export default function AppRouter() {
-    const {isAuthenticated} = useAuth();
+    const {isAuthenticated, isAdmin} = useAuth();
 
     return (
         <Routes>
             <Route path="/login" element={<Login/>}/>
 
             <Route path="/" element={
-                isAuthenticated ? <Navigate to="/answers" replace/> : <Navigate to="/login" replace/>
+                isAuthenticated ? (isAdmin ? <Navigate to="/questions" replace/> : <Navigate to="/answers" replace/>) :
+                    <Navigate to="/login" replace/>
             }/>
 
             <Route path="/questions" element={
