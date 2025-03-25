@@ -65,7 +65,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                                 className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary"
                                 aria-label="Edit question"
                             >
-                                <Edit className="h-4 w-4"/>
+                                <Edit className="text-white h-4 w-4"/>
                             </button>
 
                             <button
@@ -73,7 +73,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                                 className="p-1.5 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                                 aria-label="Delete question"
                             >
-                                <Trash className="h-4 w-4"/>
+                                <Trash className="text-white h-4 w-4"/>
                             </button>
                         </div>
                     )}
@@ -157,13 +157,13 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                     <div className="flex justify-end space-x-3">
                         <button
                             onClick={cancelDelete}
-                            className="px-3 py-1 text-sm border border-input rounded-md hover:bg-secondary/50"
+                            className="text-white px-3 py-1 text-sm border border-input rounded-md hover:bg-secondary/50"
                         >
                             Cancel
                         </button>
                         <button
                             onClick={confirmDelete}
-                            className="px-3 py-1 text-sm bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90"
+                            className="text-white px-3 py-1 text-sm bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90"
                         >
                             Delete
                         </button>
